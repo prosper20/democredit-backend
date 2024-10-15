@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es6"],
+    "esModuleInterop": true,
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types"],
+    "resolveJsonModule": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "skipLibCheck": true
+  },
+  "include": ["src/*.ts", "src/**/*.ts", "src/**/*.js"],
+  "exclude": ["node_modules", "src/**/*.spec.ts", "src/**/*.infra.ts", "src/**/*.test.ts", "src/**/*.e2e.ts"]
+}
