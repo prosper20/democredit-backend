@@ -1,4 +1,4 @@
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt-nodejs";
 import { ValueObject } from "../../../shared/domain/ValueObject";
 import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
@@ -22,11 +22,6 @@ export class UserPassword extends ValueObject<IUserPasswordProps> {
   private static isAppropriateLength(password: string): boolean {
     return password.length >= this.minLength;
   }
-
-  /**
-   * @method comparePassword
-   * @desc Compares as plain-text and hashed password.
-   */
 
   public async comparePassword(plainTextPassword: string): Promise<boolean> {
     let hashed: string;
@@ -53,15 +48,12 @@ export class UserPassword extends ValueObject<IUserPasswordProps> {
 
   private hashPassword(password: string): Promise<string> {
     return new Promise((resolve, reject) => {
-        bcrypt.genSalt(20, (err, salt) => {
-            if (err) return reject(err);
-            bcrypt.hash(password, salt, (err, hash) => {
-                if (err) return reject(err);
-                resolve(hash);
-            });
-        });
+      bcrypt.hash(password, "", null, (err, hash) => {
+        if (err) return reject(err);
+        resolve(hash);
+      });
     });
-}
+  }
 
   public getHashedValue(): Promise<string> {
     return new Promise((resolve) => {

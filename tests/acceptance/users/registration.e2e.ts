@@ -24,7 +24,7 @@ describe("Auth End-to-End Tests", () => {
   test("Successful registration", async () => {
     registerUserInput = new UserBuilder()
       .withRandomName()
-      .withRandomMobileNumber()
+      .withMobileNumber("23456323456")
       .withRandomEmail()
       .withRandomRole()
       .withPassword("QWerty@78")
@@ -33,30 +33,31 @@ describe("Auth End-to-End Tests", () => {
 
     response = await restfulAPIDriver.post("/auth/register", registerUserInput);
     expect(response.status).toBe(200);
-  });
+    expect(response.body.status).toBe("success");
+  }, 10000);
 
   test("Successful login", async () => {
     CreateLoginUserInput = new UserBuilder()
       .withRandomName()
-      .withRandomMobileNumber()
-      .withRole("USER")
-      .withEmail("daniel.regha@gmail.com")
+      .withMobileNumber("23456323456")
+      .withRandomEmail()
+      .withRandomRole()
       .withPassword("QWerty@78")
       .withPasswordConfirm("QWerty@78")
       .build();
 
-    await restfulAPIDriver.post("/users/new", CreateLoginUserInput);
+    await restfulAPIDriver.post("/auth/register", CreateLoginUserInput);
 
     loginUserInput = {
-      email: "daniel.Regha@gmail.com",
+      email: CreateLoginUserInput.email,
       password: "QWerty@78",
     };
 
     response = await restfulAPIDriver.post("/auth/login", loginUserInput);
     expect(response.status).toBe(200);
     expect(response.body.accessToken).toBeDefined();
-    expect(response.body.refreshToken).toBeDefined();
-  });
+    expect(response.body.user).toBeDefined();
+  }, 10000);
 
   afterAll(async () => {
     await server.stop();

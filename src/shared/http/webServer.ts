@@ -1,4 +1,5 @@
 import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 import cors from "cors";
 import express, { NextFunction, Request, Response, Router } from "express";
 import http, { Server } from "http";
@@ -56,6 +57,8 @@ export class WebServer {
     // );
     this.express.use(cors());
     this.express.options("*", cors());
+    this.express.use(bodyParser.urlencoded({ extended: true }));
+    this.express.use(bodyParser.json());
     this.express.use(express.json());
     this.express.use(cookieParser());
   }

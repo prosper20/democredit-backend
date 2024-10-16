@@ -1,10 +1,9 @@
 import { Knex } from 'knex';
 
-import { IUserRepo } from "../userRepo";
-import { User } from "../../domain/user";
-import { UserMap } from "../../mappers/userMap";
-import { UserEmail } from "../../domain/userEmail";
-
+import { User } from '../../domain/user';
+import { UserEmail } from '../../domain/userEmail';
+import { UserMap } from '../../mappers/userMap';
+import { IUserRepo } from '../userRepo';
 
 export class KnexUserRepo implements IUserRepo {
   private db: Knex<any, unknown[]>; 
