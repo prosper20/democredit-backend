@@ -18,6 +18,7 @@ const config: AppConfig = {
     redisServerPort: parseInt(e.REDIS_PORT || "6379", 10),
     redisServerHost: e.REDIS_HOST!,
     redisConnectionString: e.REDIS_URL!,
+    redisPassword: e.REDIS_PASS
   },
 
   environment: {

@@ -28,26 +28,34 @@ export class WebServer {
 
   private configureExpress(config: WebServerConfig) {
     this.express.use((req: Request, res: Response, next: NextFunction) => {
-      const origin = req.headers.origin as string;
-      if (config.allowedOrigins.includes(origin)) {
-        res.header("Access-Control-Allow-Credentials", "true");
-      }
+      // const origin = req.headers.origin as string;
+      // if (config.allowedOrigins.includes(origin)) {
+      //   res.header("Access-Control-Allow-Credentials", "true");
+      // }
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+      res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization"
+      );
+      res.setHeader("Access-Control-Allow-Credentials", "true");
       next();
     });
 
-    this.express.use(
-      cors<Request>({
-        origin: (origin: string | undefined, callback) => {
-          if (config.allowedOrigins.indexOf(origin!) !== -1 || !origin) {
-            callback(null, origin);
-          } else {
-            console.log(origin);
-            callback(new Error("Not allowed by CORS"), false);
-          }
-        },
-        optionsSuccessStatus: 200,
-      }),
-    );
+    // this.express.use(
+    //   cors<Request>({
+    //     origin: (origin: string | undefined, callback) => {
+    //       if (config.allowedOrigins.indexOf(origin!) !== -1 || !origin) {
+    //         callback(null, origin);
+    //       } else {
+    //         callback(new Error("Not allowed by CORS"), false);
+    //       }
+    //     },
+    //     optionsSuccessStatus: 200,
+    //   }),
+    // );
+    this.express.use(cors());
+    this.express.options("*", cors());
     this.express.use(express.json());
     this.express.use(cookieParser());
   }

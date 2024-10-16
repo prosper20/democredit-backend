@@ -18,19 +18,31 @@ export class KnexUserRepo implements IUserRepo {
     return !!result;
   }
 
-  async getUserByUserId(userId: string): Promise<User> {
-    const baseUser = await this.db('users').where({ id: userId }).first();
+  async getUserByEmail(email: string): Promise<User> {
+    const user = await this.db('users').where({ email }).first();
     
-    if (!baseUser) throw new Error("User not found.");
-    return UserMap.toDomain(baseUser);
+    if (!user) throw new Error("User not found.");
+    return UserMap.toDomain(user);
+  }
+
+  async getUserByUserId(userId: string): Promise<User> {
+    const user = await this.db('users').where({ id: userId }).first();
+    
+    if (!user) throw new Error("User not found.");
+    return UserMap.toDomain(user);
   }
 
   async save(user: User): Promise<void> {
     const exists = await this.exists(user.email);
+    const rawKnexUser = await UserMap.toPersistence(user);
     
-    if (!exists) {
-      const rawKnexUser = await UserMap.toPersistence(user);
+    if (exists) {
+    await this.db('users')
+      .where({ email: user.email.value })
+      .update(rawKnexUser);
+    } else {
       await this.db('users').insert(rawKnexUser);
     }
+
   }
 }

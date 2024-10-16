@@ -10,6 +10,7 @@ interface AuthConfig {
   redisServerPort: number;
   redisServerHost: string;
   redisConnectionString: string;
+  redisPassword: string;
 }
 
 interface EnvironmentConfig {
