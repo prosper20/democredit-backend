@@ -1,4 +1,4 @@
-import { IAuthService } from "../../../../modules/users/services/authService";
+import { IAuthService } from "../../../modules/users/services/authService";
 
 export class Middleware {
   private authService: IAuthService;
