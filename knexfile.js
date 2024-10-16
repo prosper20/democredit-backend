@@ -18,6 +18,10 @@ const config = {
       password: DB_PASS,
       database: DB_NAME,
     },
+    pool: {
+      min: 0,
+      max: 10,
+    },
     migrations: {
       directory: './db/migrations',
     },
@@ -25,6 +29,10 @@ const config = {
   production: {
     client: 'mysql2',
     connection: DB_URL,
+    pool: {
+      min: 0,
+      max: 10,
+    },
     migrations: {
       directory: './db/migrations',
     },

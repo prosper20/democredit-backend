@@ -18,7 +18,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt-nodejs": "^0.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dompurify": "^3.1.7",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^9.0.3",
-    "@types/bcrypt": "^5.0.2",
+    "@types/bcrypt-nodejs": "^0.0.31",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/dompurify": "^3.0.5",
@@ -45,6 +45,7 @@
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.7.5",
     "@types/redis": "^4.0.10",
+    "@types/supertest": "^6.0.2",
     "@types/uuid": "^10.0.0",
     "@types/validator": "^13.12.2",
     "cross-env": "^7.0.3",
