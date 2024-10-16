@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: demo_credit_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpwd
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+    ports:
+      - 3306:3306
+
+
+  redis:
+    container_name: demo_credit_redis
+    image: redis:latest
+    ports:
+      - 6379:6379
