@@ -3,7 +3,8 @@ import { Knex } from 'knex';
 import { User } from '../../domain/user';
 import { UserEmail } from '../../domain/userEmail';
 import { UserMap } from '../../mappers/userMap';
-import { IUserRepo } from '../userRepo';
+import { IUserRepo } from '../IRepo';
+import { dispatchEventsCallback } from '../../../../shared/domain/events/DispatchEvents';
 
 export class KnexUserRepo implements IUserRepo {
   private db: Knex<any, unknown[]>; 
@@ -41,6 +42,8 @@ export class KnexUserRepo implements IUserRepo {
       .update(rawKnexUser);
     } else {
       await this.db('users').insert(rawKnexUser);
+
+      dispatchEventsCallback(user.userId.getStringValue());
     }
 
   }

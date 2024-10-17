@@ -5,7 +5,7 @@ import { JWTToken, RefreshToken } from "../../../../shared/domain/jwt";
 import { UserEmail } from "../../domain/userEmail";
 import { UserPassword } from "../../domain/userPassword";
 import { User } from "../../domain/user";
-import { IUserRepo } from "../../repos/userRepo";
+import { IUserRepo } from "../../repos/IRepo";
 import { IAuthService } from "../../services/authService";
 import { LoginDTO, LoginResponse } from "./LoginDTO";
 import { LoginUseCaseErrors } from "./LoginErrors";
@@ -58,6 +58,7 @@ export class LoginUserUseCase implements UseCase<LoginDTO, Promise<Response>> {
       const refreshToken: RefreshToken = this.authService.createRefreshToken();
 
       user.setAccessToken(accessToken, refreshToken);
+      await this.authService.saveAuthenticatedUser(user);
 
       return right(
         Result.ok<LoginResponse>({
