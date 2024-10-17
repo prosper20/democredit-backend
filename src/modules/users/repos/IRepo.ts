@@ -17,4 +17,5 @@ export interface IWalletRepo {
 
 export interface ITransactionRepo {
   createTransaction(transaction: Transaction): Promise<void>
+  getTransactionsForUser(userId: string, page: number, limit: number): Promise<{ transactions: Transaction[], total: number }>
 }
