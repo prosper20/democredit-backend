@@ -2,10 +2,11 @@ import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
 import { Entity } from "../../../shared/domain/Entity";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
+import { TransactionType } from "./transactionType";
 
 export interface TransactionProps {
   amount: number;
-  type: 'DEPOSIT' | 'WITHDRAWAL' | 'DISBURSEMENT' | 'REPAYMENT' | 'TRANSFER';
+  type: TransactionType;
   senderId?: UniqueEntityID;
   receiverId?: UniqueEntityID;
   loanId?: UniqueEntityID | null;

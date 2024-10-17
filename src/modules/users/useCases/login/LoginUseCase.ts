@@ -58,6 +58,7 @@ export class LoginUserUseCase implements UseCase<LoginDTO, Promise<Response>> {
       const refreshToken: RefreshToken = this.authService.createRefreshToken();
 
       user.setAccessToken(accessToken, refreshToken);
+      await this.authService.saveAuthenticatedUser(user);
 
       return right(
         Result.ok<LoginResponse>({
