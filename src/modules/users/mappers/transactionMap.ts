@@ -1,18 +1,31 @@
 import { Mapper } from "../../../shared/utils/Mapper";
 import { Transaction } from "../domain/transaction";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
+import { TransactionDTO } from "../dtos/transactionDTO";
 
 export class TransactionMap implements Mapper<Transaction> {
-  public static toDTO(transaction: Transaction): any {
+  public static toDTO(transaction: Transaction): TransactionDTO {
+    let from = transaction.senderId.toString()
+    let to = transaction.receiverId.toString()
+
+    if (transaction.type === "DEPOSIT"){
+      from = "Deposit from External account"
+      to = transaction.receiverId.toString()
+    }
+
+    if (transaction.type === "WITHDRAWAL") {
+      from = transaction.senderId.toString()
+      to = "Withdrawal to External account"
+    }
+
     return {
       transactionId: transaction.transactionId.toString(),
-      amount: transaction.amount,
+      amount: `${transaction.amount}`,
+      from,
+      to,
       type: transaction.type,
-      senderId: transaction.senderId ? transaction.senderId.toString() : null,
-      receiverId: transaction.receiverId ? transaction.receiverId.toString() : null,
       loanId: transaction.loanId ? transaction.loanId.toString() : null,
       createdAt: transaction.createdAt.toISOString(),
-      updatedAt: transaction.updatedAt ? transaction.updatedAt.toISOString() : null,
     };
   }
 
