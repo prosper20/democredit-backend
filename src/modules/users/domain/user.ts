@@ -6,6 +6,7 @@ import { UserEmail } from "./userEmail";
 import { UserId } from "./userId";
 import { UserPassword } from "./userPassword";
 import { MobileNumber } from "./mobileNumber";
+import { UserCreated } from "./events/userCreated";
 
 export interface UserProps {
   fullName: FullName;
@@ -103,7 +104,7 @@ export class User extends AggregateRoot<UserProps> {
     );
 
     if (isNewUser) {
-      //dispatch Event: NewUserCreated
+      user.addDomainEvent(new UserCreated(user));
     }
 
     return Result.ok<User>(user);

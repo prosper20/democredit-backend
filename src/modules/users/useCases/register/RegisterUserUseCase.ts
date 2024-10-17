@@ -4,7 +4,7 @@ import { UserEmail } from "../../domain/userEmail";
 import { UserPassword } from "../../domain/userPassword";
 import { User } from "../../domain/user";
 import { Role } from "../../domain/role";
-import { IUserRepo } from "../../repos/userRepo";
+import { IUserRepo } from "../../repos/IRepo";
 import { RegisterUserDTO } from "./RegisterUserDTO";
 import { RegisterUserErrors } from "./RegisterUserErrors";
 import { MobileNumber } from "../../domain/mobileNumber";
