@@ -6,10 +6,7 @@ export class WalletMap implements Mapper<Wallet> {
   public static toDTO(wallet: Wallet): any {
     return {
       walletId: wallet.walletId.toString(),
-      balance: wallet.balance,
-      userId: wallet.userId.toString(),
-      createdAt: wallet.createdAt.toISOString(),
-      updatedAt: wallet.updatedAt ? wallet.updatedAt.toISOString() : null,
+      balance: `${wallet.balance}`,
     };
   }
 

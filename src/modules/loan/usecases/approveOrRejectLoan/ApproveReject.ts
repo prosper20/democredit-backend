@@ -1,4 +1,5 @@
 import { AppError, Either, left, Result, right, UniqueEntityID, UseCase } from "../../../../shared";
+import { LoanApproved } from "../../domain/events/loanApproved";
 import { Loan, LoanProps } from "../../domain/loan";
 import { LoanStatus } from "../../domain/loanStatus";
 import { ILoanRepo } from "../../repos/IRepo";
@@ -33,6 +34,9 @@ export class ApproveReject implements UseCase<ApproveRejectDTO, Promise<Response
         }
 
       loan.updateStatus(request.type as LoanStatus)
+      if (loan.status === "ACTIVE") {
+      loan.addDomainEvent(new LoanApproved(loan));
+    }
       await this.loanRepo.saveLoan(loan);
 
       return right(Result.ok<void>()) as Response;
