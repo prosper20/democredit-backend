@@ -1,5 +1,5 @@
 import { AnySrvRecord } from "dns";
-import { IAuthService } from "../../../modules/users/services/authService";
+import { IAuthService } from "../../../modules/user/services/authService";
 
 type Role = "ADMIN" | "USER";
 

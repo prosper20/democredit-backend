@@ -1,14 +1,14 @@
 import { DecodedExpressRequest } from "../../../../shared";
 import { BaseController } from "../../../../shared/http/models/BaseController";
-import { TransactionMap } from "../../mappers/transactionMap";
-import { GetTransactions } from "./GetTransactions";
-import { GetTransactionsRequestDTO, GetTransactionsResponseDTO } from "./GetTransactionsDTO";
+import { LoanOfferMap } from "../../Mappers/loanOfferMap";
+import { GetOffers } from "./GetOffers";
+import { GetOffersRequestDTO, GetOffersResponseDTO } from "./GetOffersDTO";
 import { paginate } from "../../../../shared/utils/Paginate"
 
-export class GetTransactionsController extends BaseController {
-  private useCase: GetTransactions;
+export class GetOffersController extends BaseController {
+  private useCase: GetOffers;
 
-  constructor(useCase: GetTransactions) {
+  constructor(useCase: GetOffers) {
     super();
     this.useCase = useCase;
   }
@@ -18,8 +18,7 @@ export class GetTransactionsController extends BaseController {
     const parsedPage = parseInt(page as string, 10);
     const parsedLimit = parseInt(limit as string, 10);
 
-    const dto: GetTransactionsRequestDTO = {
-      userId: req.decoded.userId,
+    const dto: GetOffersRequestDTO = {
       page: parsedPage,
       limit: parsedLimit,
     };
@@ -36,11 +35,11 @@ export class GetTransactionsController extends BaseController {
             return this.fail(res, error.getErrorValue().message);
         }
       } else {
-        const { transactions, total } = result.value.getValue();
+        const { loanOffers, total } = result.value.getValue();
         const pagination = await  paginate(total, dto.page, dto.limit)
-        return this.ok<GetTransactionsResponseDTO>(res, {
+        return this.ok<GetOffersResponseDTO>(res, {
           ...pagination,
-          transactions: transactions.map((tnx) => TransactionMap.toDTO(tnx)),
+          loanOffers: loanOffers.map((offer) => LoanOfferMap.toDTO(offer)),
         });
       }
     } catch (err) {

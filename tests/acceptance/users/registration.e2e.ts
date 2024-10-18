@@ -1,7 +1,7 @@
-import { LoginDTO } from "src/modules/users/useCases/login/LoginDTO";
-import { RegisterUserDTO } from "src/modules/users/useCases/register/RegisterUserDTO";
+import { LoginDTO } from "@/src/modules/user/useCases/login/LoginDTO";
+import { RegisterUserDTO } from "@/src/modules/user/useCases/register/RegisterUserDTO";
 
-import { redisConnection } from "../../../src/modules/users/services/redis/redisConnection";
+import { redisConnection } from "../../../src/modules/user/services/redis/redisConnection";
 import { CompositionRoot } from "../../../src/shared/composition/compositionRoot";
 import { RESTfulAPIDriver } from "../../../src/shared/http/restfulAPIDriver";
 import { UserBuilder } from "../../../src/shared/tests/users/builders/userBuilder";

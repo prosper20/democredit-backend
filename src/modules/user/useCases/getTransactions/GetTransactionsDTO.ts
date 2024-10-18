@@ -14,4 +14,5 @@ export interface GetTransactionsRequestDTO {
   userId?: string;
   page?: number;
   limit?: number;
+  loanId?: string;
 }
