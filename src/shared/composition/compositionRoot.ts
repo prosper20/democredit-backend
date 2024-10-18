@@ -1,4 +1,4 @@
-import { userRouter } from "../../modules/users/infra/http/routes";
+import { userRouter } from "../../modules/user/infra/http/routes";
 import { config } from "../config";
 import { WebServer } from "../http/webServer";
 import { Router } from "express";

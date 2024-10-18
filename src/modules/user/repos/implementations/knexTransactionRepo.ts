@@ -92,7 +92,6 @@ export class KnexTransactionRepo implements ITransactionRepo {
       .count('* as count')
       .first();
 
-      console.log("total:", totalResult)
       const total = totalResult ? Number(totalResult.count) : 0;
       const transactions = rawTransactions.map((tnx) => TransactionMap.toDomain(tnx));
 

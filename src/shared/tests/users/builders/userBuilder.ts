@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { RegisterUserDTO } from "src/modules/users/useCases/register/RegisterUserDTO";
-import { Role } from "../../../../modules/users/domain/role";
+import { RegisterUserDTO } from "@/src/modules/user/useCases/register/RegisterUserDTO";
+import { Role } from "../../../../modules/user/domain/role";
 
 function generateRandomInteger(min: number, max: number) {
   return Math.floor(min + Math.random() * (max - min + 1));
