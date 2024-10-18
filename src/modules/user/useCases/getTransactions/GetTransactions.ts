@@ -15,6 +15,10 @@ export class GetTransactions implements UseCase<GetTransactionsRequestDTO, Promi
   public async execute(req: GetTransactionsRequestDTO): Promise<Response> {
 
     try {
+      if (req.loanId){
+        const {transactions, total } = await this.transactionRepo.getTransactionsForLoan(req.loanId, req.page, req.limit);
+        return right(Result.ok<{ transactions: Transaction[], total: number }>({transactions, total } ));
+      }
       const {transactions, total } = await this.transactionRepo.getTransactionsForUser(req.userId, req.page, req.limit);
       return right(Result.ok<{ transactions: Transaction[], total: number }>({transactions, total } ));
     } catch (err) {

@@ -100,4 +100,27 @@ export class KnexTransactionRepo implements ITransactionRepo {
       total,
     };
   }
+
+  async getTransactionsForLoan(loanId: string, page: number = 1, limit: number = 10): Promise<{ transactions: Transaction[], total: number }> {
+    const offset = (page - 1) * limit;
+
+    const rawTransactions = await this.db('transactions')
+        .where('loan_id', loanId)
+        .limit(limit)
+        .offset(offset);
+
+    const totalResult = await this.db('transactions')
+        .where('loan_id', loanId)
+        .count('* as count')
+        .first();
+
+    const total = totalResult ? Number(totalResult.count) : 0;
+    const transactions = rawTransactions.map((tnx) => TransactionMap.toDomain(tnx));
+
+    return {
+        transactions,
+        total,
+    };
+  }
+
 }

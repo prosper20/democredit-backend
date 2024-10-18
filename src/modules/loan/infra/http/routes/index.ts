@@ -7,6 +7,8 @@ import { getOffersController } from "../../../usecases/getOffers";
 import { getLoansController } from "../../../usecases/getLoans";
 import { getOfferController } from "../../../usecases/getOffer";
 import { getLoanController } from "../../../usecases/getLoan";
+import { userRouter } from "../../../../user/infra/http/routes";
+import { getTransactionsController } from "../../../../user/useCases/getTransactions";
 const loanRouter = express.Router();
 
 loanRouter.get("/loans", 
@@ -31,18 +33,24 @@ loanRouter.post("/loans/request",
   (req, res) => createLoanController.execute(req, res)
 );
 
-// loanRouter.post("/loans/approve", 
-//   middleware.ensureAuthenticated(), 
-//   (req, res) => approveLoanController.execute(req, res)
-// );
-
-// loanRouter.post("/loans/reject", 
-//   middleware.ensureAuthenticated(), 
-//   (req, res) => rejectLoanController.execute(req, res)
-// );
 loanRouter.get("/loans/:loanId", 
   middleware.ensureAuthenticated(), 
   (req, res) => getLoanController.execute(req, res)
 );
+
+// loanRouter.post("/loans/:loanId/approve", 
+//   middleware.ensureAuthenticated(), 
+//   (req, res) => approveLoanController.execute(req, res)
+// );
+
+// loanRouter.post("/loans/:loanId/reject", 
+//   middleware.ensureAuthenticated(), 
+//   (req, res) => rejectLoanController.execute(req, res)
+// );
+
+loanRouter.get("/loans/:loanId/transactions", middleware.ensureAuthenticated(), 
+  (req, res) => getTransactionsController.execute(req, res)
+);
+
 
 export { loanRouter };

@@ -23,8 +23,9 @@ export class GetTransactionsController extends BaseController {
       page: parsedPage,
       limit: parsedLimit,
     };
-    
 
+    if (req.params.loanId) dto.loanId = req.params.loanId as string;
+    
     try {
       const result = await this.useCase.execute(dto);
 
