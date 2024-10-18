@@ -14,4 +14,12 @@ export class KnexWalletRepo implements IWalletRepo {
     const rawWallet = await WalletMap.toPersistence(wallet);
     await this.db('wallets').insert(rawWallet);
   }
+
+  async getWallet(userId: string): Promise<Wallet> {
+    const wallet = await this.db('wallets').where({ user_id: userId }).first();
+    
+    if (!wallet) throw new Error("Wallet not found.");
+
+    return WalletMap.toDomain(wallet);
+  }
 }

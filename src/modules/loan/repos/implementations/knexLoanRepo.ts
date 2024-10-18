@@ -4,6 +4,7 @@ import { LoanOfferMap } from '../../Mappers/loanOfferMap';
 import { LoanMap } from '../../Mappers/loanMap';
 import { ILoanRepo } from '../IRepo';
 import { Loan } from '../../domain/loan';
+import { dispatchEventsCallback } from '../../../../shared/domain/events/DispatchEvents';
 
 export class KnexLoanRepo implements ILoanRepo {
   private db: Knex<any, unknown[]>;
@@ -62,6 +63,8 @@ export class KnexLoanRepo implements ILoanRepo {
       await this.db('loans')
         .where({ id: loan.loanId.toString() })
         .update(rawLoan);
+
+      dispatchEventsCallback(loan.loanId.toString());
     } else {
       await this.db('loans').insert(rawLoan);
     }
