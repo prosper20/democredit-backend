@@ -1,4 +1,4 @@
-import { AggregateRoot, Either, Guard, left, Result, right, UniqueEntityID } from "../../../shared/";
+import { AggregateRoot, Either, Guard, left, Result, right, UniqueEntityID } from "../../../shared";
 import { JWTToken, RefreshToken } from "../../../shared/domain/jwt";
 import { FullName } from "./fullName";
 import { Role } from "./role";

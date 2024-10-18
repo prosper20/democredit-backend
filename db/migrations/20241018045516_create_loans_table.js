@@ -24,7 +24,7 @@ exports.up = function(knex) {
   return knex.schema.dropTableIfExists('loans')
     .then(() => {
       return knex.schema.createTable('loans', (table) => {
-        table.string('id').primary();
+        table.string('id').unique().primary();
         table.string('loaner_id');
         table.string('user_id');
         table.enu('status', ['PENDING', 'REJECTED', 'ACTIVE', 'COMPLETED', 'DEFAULTED']).defaultTo('PENDING');

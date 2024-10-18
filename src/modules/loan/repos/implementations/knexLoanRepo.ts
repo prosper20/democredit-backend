@@ -33,6 +33,27 @@ export class KnexLoanRepo implements ILoanRepo {
     return LoanOfferMap.toDomain(loanOfferData);
   }
 
+  async getLoanOffers(page: number = 1, limit: number = 10): Promise<{loanOffers: LoanOffer[], total: number}> {
+    const offset = (page - 1) * limit;
+
+    const loanOffersData = await this.db('loan_offers')
+      .select('*')
+      .limit(limit)
+      .offset(offset);
+
+    const totalResult = await this.db('loan_offers')
+      .count('* as count')
+      .first();
+
+    const total = totalResult ? Number(totalResult.count) : 0;
+    const loanOffers = loanOffersData.map((offer) => LoanOfferMap.toDomain(offer));
+
+    return {
+      loanOffers,
+      total,
+    };
+  }
+
   async saveLoan(loan: Loan): Promise<void> {
     const exists = await this.db('loans').where({ id: loan.loanId.toString() }).first(); // Assuming loan has an id property
     const rawLoan = await LoanMap.toPersistence(loan);
@@ -45,4 +66,82 @@ export class KnexLoanRepo implements ILoanRepo {
       await this.db('loans').insert(rawLoan);
     }
   }
+
+   async getLoan(loanId: string): Promise<Loan> {
+    const loanData = await this.db('loans').where({ id: loanId }).first();
+    
+    if (!loanData) throw new Error("Loan not found.");
+
+    return LoanMap.toDomain(loanData);
+  }
+
+  async getLoansForUser(
+  userId: string,
+  page: number = 1,
+  limit: number = 10,
+  status: string = 'ALL'
+): Promise<{ loans: Loan[], total: number }> {
+  const offset = (page - 1) * limit;
+
+  let query = this.db('loans').where({ user_id: userId });
+
+  if (status !== 'ALL') {
+    query = query.andWhere({ status });
+  }
+
+  const loansData = await query.limit(limit).offset(offset);
+
+  const totalResult = await this.db('loans')
+    .where({ user_id: userId })
+    .modify((qb) => {
+      if (status !== 'ALL') {
+        qb.andWhere({ status });
+      }
+    })
+    .count('* as count')
+    .first();
+
+  const total = totalResult ? Number(totalResult.count) : 0;
+  const loans = loansData.map((offer) => LoanMap.toDomain(offer));
+
+  return {
+    loans,
+    total,
+  };
+ }
+
+ async getLoansForAdmin(
+  loanerId: string,
+  page: number = 1,
+  limit: number = 10,
+  status: string = 'ALL'
+): Promise<{ loans: Loan[], total: number }> {
+  const offset = (page - 1) * limit;
+
+  let query = this.db('loans').where({ loaner_id: loanerId });
+
+  if (status !== 'ALL') {
+    query = query.andWhere({ status });
+  }
+
+  const loansData = await query.limit(limit).offset(offset);
+
+  const totalResult = await this.db('loans')
+    .where({ loaner_id: loanerId })
+    .modify((qb) => {
+      if (status !== 'ALL') {
+        qb.andWhere({ status });
+      }
+    })
+    .count('* as count')
+    .first();
+
+  const total = totalResult ? Number(totalResult.count) : 0;
+  const loans = loansData.map((offer) => LoanMap.toDomain(offer));
+
+  return {
+    loans,
+    total,
+  };
+ }
 }
