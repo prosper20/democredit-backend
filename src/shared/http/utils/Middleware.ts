@@ -1,4 +1,7 @@
+import { AnySrvRecord } from "dns";
 import { IAuthService } from "../../../modules/users/services/authService";
+
+type Role = "ADMIN" | "USER";
 
 export class Middleware {
   private authService: IAuthService;
@@ -39,14 +42,12 @@ export class Middleware {
     };
   }
 
-  public setUsernameFromDecoded() {
+  public restrictTo(...roles: Role[]) {
     return (req: any, res: any, next: any) => {
-      if (req.decoded && req.decoded.username) {
-        req.params.username = req.decoded.username;
-        next();
-      } else {
-        return res.status(400).send({ message: "Username not found in decoded token" });
+      if (!roles.includes(req.decoded.role as Role)) {
+        return this.endRequest(403, "You do not have permission to perform this action", res);
       }
+      next();
     };
   }
 }
