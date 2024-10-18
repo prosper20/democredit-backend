@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { RegisterUserDTO } from "@/src/modules/user/useCases/register/RegisterUserDTO";
+import { RegisterUserDTO } from "../../../../modules/user/useCases/register/RegisterUserDTO";
 import { Role } from "../../../../modules/user/domain/role";
 
 function generateRandomInteger(min: number, max: number) {
