@@ -1,7 +1,7 @@
 export interface LoanDTO {
     loanId: string;
     userId: string;
-    offerId: string;
+    loanerId: string;
     status: string;
     amount: string;
     interestRate: string;

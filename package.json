@@ -5,7 +5,6 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "migrate": "npx knex migrate:latest",
-    "migrate:make": "npx knex migrate:make create_user_table",
     "build": "npm run clean && tsc -b tsconfig.build.json",
     "start": "node dist/index.js",
     "dev": "npm run migrate && nodemon --exec ts-node src/index.ts",

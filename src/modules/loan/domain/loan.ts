@@ -4,7 +4,7 @@ import { LoanStatus } from "./loanStatus";
 
 export interface LoanProps {
   userId: UniqueEntityID;
-  offerId: UniqueEntityID;
+  loanerId: UniqueEntityID;
   status: LoanStatus;
   amount: number;
   interestRate: number;
@@ -27,8 +27,8 @@ export class Loan extends AggregateRoot<LoanProps> {
     return this.props.userId;
   }
 
-  get offerId(){
-    return this.props.offerId;
+  get loanerId(){
+    return this.props.loanerId;
   }
 
   get status() {
@@ -96,7 +96,7 @@ export class Loan extends AggregateRoot<LoanProps> {
   public static create(props: LoanProps, id?: UniqueEntityID): Result<Loan> {
     const guardResult = Guard.againstNullOrUndefinedBulk([
       { argument: props.userId, argumentName: "userId" },
-      { argument: props.offerId, argumentName: "offerId" },
+      { argument: props.loanerId, argumentName: "loanerId" },
       { argument: props.amount, argumentName: "amount" },
       { argument: props.interestRate, argumentName: "interestRate" },
       { argument: props.duration, argumentName: "duration" },

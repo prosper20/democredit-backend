@@ -8,7 +8,7 @@ export class LoanMap implements Mapper<Loan> {
     return {
         loanId: loan.loanId.toString(),
         userId: loan.userId.toString(),
-        offerId: loan.offerId.toString(),
+        loanerId: loan.loanerId.toString(),
         status: loan.status.toString(),
         amount: loan.amount.toFixed(2),
         interestRate: loan.interestRate.toFixed(2),
@@ -26,7 +26,7 @@ export class LoanMap implements Mapper<Loan> {
     return {
       id: loan.loanId.toString(),
       user_id: loan.userId.toString(),
-      offer_id: loan.offerId.toString(),
+      loaner_id: loan.loanerId.toString(),
       status: loan.status,
       amount: loan.amount,
       interest_rate: loan.interestRate,
@@ -45,7 +45,7 @@ export class LoanMap implements Mapper<Loan> {
     const loanOrError = Loan.create(
       {
         userId: new UniqueEntityID(raw.user_id),
-        offerId: new UniqueEntityID(raw.offer_id),
+        loanerId: new UniqueEntityID(raw.loaner_id),
         status: raw.status,
         amount: parseFloat(raw.amount),
         interestRate: parseFloat(raw.interest_rate),

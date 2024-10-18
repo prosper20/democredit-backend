@@ -2,7 +2,6 @@ import { Mapper } from "../../../shared/utils/Mapper";
 import { LoanOffer } from "../domain/loanOffer";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 import { LoanOfferDTO } from "../dtos/loanOfferDTO";
-import { Wallet } from "../../users/domain/wallet";
 
 export class LoanOfferMap implements Mapper<LoanOffer> {
     public static toDTO(loanOffer: LoanOffer): LoanOfferDTO {

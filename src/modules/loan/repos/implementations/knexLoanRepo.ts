@@ -25,6 +25,14 @@ export class KnexLoanRepo implements ILoanRepo {
     }
   }
 
+  async getLoanOffer(loanOfferId: string): Promise<LoanOffer> {
+    const loanOfferData = await this.db('loan_offers').where({ id: loanOfferId }).first();
+    
+    if (!loanOfferData) throw new Error("Offer not found.");
+
+    return LoanOfferMap.toDomain(loanOfferData);
+  }
+
   async saveLoan(loan: Loan): Promise<void> {
     const exists = await this.db('loans').where({ id: loan.loanId.toString() }).first(); // Assuming loan has an id property
     const rawLoan = await LoanMap.toPersistence(loan);
