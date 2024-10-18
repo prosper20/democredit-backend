@@ -16,7 +16,7 @@ export class GetLoanController extends BaseController {
 
   async executeImpl(req: DecodedExpressRequest, res: any): Promise<any> {
     const dto: GetLoanRequestDTO = {
-      loanId: req.params.offerId as string
+      loanId: req.params.loanId
     }
     
     try {

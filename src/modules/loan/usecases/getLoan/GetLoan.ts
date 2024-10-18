@@ -21,7 +21,6 @@ export class GetLoan implements UseCase<GetLoanRequestDTO, Promise<Response>> {
       const loan = await this.loanRepo.getLoan(req.loanId);
       return right(Result.ok<Loan>(loan));
     } catch (err) {
-      console.log(err)
       return left(new GetLoanErrors.NotFoundError()) as Response;
     }
   }
