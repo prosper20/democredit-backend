@@ -18,6 +18,7 @@ export interface IUserRepo {
 
 export interface IWalletRepo {
   createWallet(wallet: Wallet): Promise<void>
+  getWallet(userId: string): Promise<Wallet>
 }
 
 export interface ITransactionRepo {

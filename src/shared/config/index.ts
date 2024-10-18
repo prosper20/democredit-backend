@@ -18,7 +18,9 @@ const config: AppConfig = {
     redisServerPort: parseInt(e.REDIS_PORT || "6379", 10),
     redisServerHost: e.REDIS_HOST!,
     redisConnectionString: e.REDIS_URL!,
-    redisPassword: e.REDIS_PASS
+    redisPassword: e.REDIS_PASS,
+    karmaUrl: e.KARMA_URL,
+    karmaApiKey: e.KARMA_API_KEY
   },
 
   environment: {

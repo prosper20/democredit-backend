@@ -26,6 +26,14 @@ export namespace RegisterUserErrors {
     }
   }
 
+  export class ErrorCheckingBlacklist extends Result<UseCaseError> {
+    constructor() {
+      super(false, {
+        message: "Credibility validation failed. Please try again.",
+      } as UseCaseError);
+    }
+  }
+
   export class ValidationError extends Result<UseCaseError> {
     constructor(message: string) {
       super(false, {

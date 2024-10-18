@@ -8,6 +8,7 @@ import { IUserRepo } from "../../repos/IRepo";
 import { RegisterUserDTO } from "./RegisterUserDTO";
 import { RegisterUserErrors } from "./RegisterUserErrors";
 import { MobileNumber } from "../../domain/mobileNumber";
+import { checkAdjutorKarmablacklist } from "../../../../shared/utils/KarmaValidation"
 
 type Response = Either<
   | RegisterUserErrors.EmailAlreadyExistsError
@@ -27,10 +28,14 @@ export class RegisterUserUseCase implements UseCase<RegisterUserDTO, Promise<Res
   }
 
   async execute(request: RegisterUserDTO): Promise<Response> {
-    // const userBlaklisted: boolean = await // ... check blacklist
-    // if (userBlaklisted) {
-    //     return left(new RegisterUserErrors.UserBlacklistedError()) as Response;
-    // }
+    try {
+      const userBlacklisted = await checkAdjutorKarmablacklist(request.email);
+      if (userBlacklisted) {
+          return left(new RegisterUserErrors.UserBlacklistedError()) as Response;
+      }
+    } catch (error) {
+      return left(new RegisterUserErrors.ErrorCheckingBlacklist) as Response;
+    }
 
     if (request.password !== request.passwordConfirm) {
       return left(new RegisterUserErrors.PasswordMismatchError()) as Response;
