@@ -11,6 +11,8 @@ interface AuthConfig {
   redisServerHost: string;
   redisConnectionString: string;
   redisPassword: string;
+  karmaUrl: string;
+  karmaApiKey: string;
 }
 
 interface EnvironmentConfig {
