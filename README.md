@@ -1,8 +1,7 @@
 
 <h1 align="center">DemoCredit</h1>
 
-## About
-
+![Bounded Context Overview](./diagrams/bounded-context.jpg)
 **DemoCredit** is a mobile lending application that includes essential wallet functionality for borrowers. This allows users to receive loans and manage repayments efficiently. 
 
 ### Key Features
@@ -34,7 +33,6 @@
 
 ## Built With
 
-### Backend Technologies
 - [Node.js](https://nodejs.org/) - LTS version
 - [Knex.js](http://knexjs.org/)
 - [MySQL](https://www.mysql.com/)
@@ -69,8 +67,6 @@ Manages loan creation and operations.
 - **Adapter Layer**: ILoanRepo.
 - **Infrastructure Layer**: KnexLoanRepo.
 
-### Bounded Context
-![Bounded Context Overview](./diagrams/bounded-context.jpg)
 
 ## Database Entity Relationship
 The DemoCredit database consists of five tables: users, wallets, loan-offers, loans, and transactions. Each user has a single wallet, and transactions can be linked to users or loans. Loan requests are made against available offers, which can only be posted by admin users.
