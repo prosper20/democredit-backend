@@ -2,6 +2,7 @@
 <h1 align="center">DemoCredit</h1>
 
 **DemoCredit** is a mobile lending application that includes essential wallet functionality for borrowers. This allows users to receive loans and manage repayments efficiently. 
+
 ![Bounded Context Overview](./diagrams/bounded-context.jpg)
 
 ### Key Features
@@ -11,9 +12,8 @@
 - Withdraw funds from the account
 - Blacklist check against Lendsqr Adjutor Karma for onboarding
 
-## Running the Project
 
-### Prerequisites
+## Prerequisites
 1. Install and start [Docker](https://docs.docker.com/compose/gettingstarted/) (Skip if using a hosted MySQL and Redis).
   
 ### Setup Instructions
@@ -28,15 +28,15 @@
    ```
    The server will be available at `http://localhost:3000`. Refer to the documentation for available endpoints and usage.
 
-### Documentation
+## Documentation
 [Visit the API Documentation](https://documenter.getpostman.com/view/24186009/2sAXxWZoxP) for detailed information on endpoints.
 
-## Built With
+### Built With
 
 - [Node.js](https://nodejs.org/) - LTS version
-- [Knex.js](http://knexjs.org/)
-- [MySQL](https://www.mysql.com/)
-- [TypeScript](https://www.typescriptlang.org/)
+- [Knex.js](http://knexjs.org/) - A SQL query builder for Node.js
+- [MySQL](https://www.mysql.com/) - Open-source relational database
+- [TypeScript](https://www.typescriptlang.org/) - A superset of JavaScrip
 - [Express.js](https://expressjs.com/) - Lightweight web server
 - [Redis](https://redis.io/) - For managing JWT and refresh tokens
 
