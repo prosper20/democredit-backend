@@ -1,8 +1,8 @@
 
 <h1 align="center">DemoCredit</h1>
 
-![Bounded Context Overview](./diagrams/bounded-context.jpg)
 **DemoCredit** is a mobile lending application that includes essential wallet functionality for borrowers. This allows users to receive loans and manage repayments efficiently. 
+![Bounded Context Overview](./diagrams/bounded-context.jpg)
 
 ### Key Features
 - User account creation
@@ -51,7 +51,6 @@ Clean Architecture helps organize application logic effectively.
 
 ### Subdomains
 The application is divided into two main subdomains: **User** and **Loan**.
-<img width="855" alt="Frame 3 (1)" src="/diagrams/subdomains.jpg">
 
 #### User Subdomain
 Focuses on authentication and user management.
