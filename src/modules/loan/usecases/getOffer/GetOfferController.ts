@@ -1,7 +1,7 @@
 import { DecodedExpressRequest } from "../../../../shared";
 import { BaseController } from "../../../../shared/http/models/BaseController";
 import { LoanOfferDTO } from "../../dtos/loanOfferDTO";
-import { LoanOfferMap } from "../../Mappers/loanOfferMap";
+import { LoanOfferMap } from "../../mappers/loanOfferMap";
 import { GetOffer } from "./GetOffer";
 import { GetOfferRequestDTO } from "./GetOfferDTO";
 import { GetLoanOfferErrors } from "./GetOfferErrors";

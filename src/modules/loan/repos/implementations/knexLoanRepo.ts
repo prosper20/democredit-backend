@@ -1,7 +1,7 @@
 import { Knex } from 'knex';
 import { LoanOffer } from '../../domain/loanOffer';
-import { LoanOfferMap } from '../../Mappers/loanOfferMap';
-import { LoanMap } from '../../Mappers/loanMap';
+import { LoanOfferMap } from '../../mappers/loanOfferMap';
+import { LoanMap } from '../../mappers/loanMap';
 import { ILoanRepo } from '../IRepo';
 import { Loan } from '../../domain/loan';
 import { dispatchEventsCallback } from '../../../../shared/domain/events/DispatchEvents';

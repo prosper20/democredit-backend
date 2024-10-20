@@ -3,7 +3,7 @@ import * as express from "express";
 import { DecodedExpressRequest } from "../../../../shared";
 import { BaseController } from "../../../../shared/http/models/BaseController";
 import { LoanDTO } from "../../dtos/loanDTO";
-import { LoanMap } from "../../Mappers/loanMap";
+import { LoanMap } from "../../mappers/loanMap";
 import { CreateLoanDTO } from "./CreateLoanDTO";
 import { CreateLoanErrors } from "./CreateLoanErrors";
 import { CreateLoanUseCase } from "./CreateLoanUseCase";
