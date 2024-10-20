@@ -19,6 +19,10 @@ export const checkAdjutorKarmablacklist = async (email: string) => {
 
         return false;
     } catch (error) {
+        const response = error.response.data
+        if (response.status === 'success' && response.message === 'Identity not found in karma ecosystem') {
+            return false;
+        }
         throw new Error("Error checking blacklist");
     }
 };

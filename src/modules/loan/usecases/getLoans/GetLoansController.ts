@@ -1,6 +1,6 @@
 import { DecodedExpressRequest } from "../../../../shared";
 import { BaseController } from "../../../../shared/http/models/BaseController";
-import { LoanMap } from "../../Mappers/loanMap";
+import { LoanMap } from "../../mappers/loanMap";
 import { GetLoans } from "./GetLoans";
 import { GetLoansRequestDTO, GetLoansResponseDTO } from "./GetLoansDTO";
 import { paginate } from "../../../../shared/utils/Paginate"
