@@ -1,4 +1,5 @@
 import "./modules/user/subscriptions";
+import "./modules/loan/subscriptions";
 
 import { userRouter } from "./modules/user/infra/http/routes";
 import { config } from "./shared/config";
