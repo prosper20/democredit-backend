@@ -3,6 +3,7 @@ import { Knex } from 'knex';
 import { Transaction } from '../../domain/transaction';
 import { TransactionMap } from '../../mappers/transactionMap';
 import { ITransactionRepo } from '../IRepo';
+import { dispatchEventsCallback } from '../../../../shared/domain/events/DispatchEvents';
 
 export class KnexTransactionRepo implements ITransactionRepo {
   private db: Knex<any, unknown[]>;
@@ -74,6 +75,8 @@ export class KnexTransactionRepo implements ITransactionRepo {
 
       const rawTransaction = await TransactionMap.toPersistence(transaction);
       await trx('transactions').insert(rawTransaction);
+
+      dispatchEventsCallback(transaction.transactionId.toString());
     });
   }
 
@@ -81,8 +84,16 @@ export class KnexTransactionRepo implements ITransactionRepo {
     const offset = (page - 1) * limit;
 
     const rawTransactions = await this.db('transactions')
-      .where('sender_id', userId)
-      .orWhere('receiver_id', userId)
+      .select('transactions.*', 
+              'sender.fullname as sender_fullname', 
+              'sender.id as sender_id', 
+              'receiver.fullname as receiver_fullname', 
+              'receiver.id as receiver_id')
+      .leftJoin('users as sender', 'transactions.sender_id', 'sender.id')
+      .leftJoin('users as receiver', 'transactions.receiver_id', 'receiver.id')
+      .where('transactions.sender_id', userId)
+      .orWhere('transactions.receiver_id', userId)
+      .orderBy('transactions.created_at', 'desc')
       .limit(limit)
       .offset(offset);
 
@@ -105,9 +116,17 @@ export class KnexTransactionRepo implements ITransactionRepo {
     const offset = (page - 1) * limit;
 
     const rawTransactions = await this.db('transactions')
-        .where('loan_id', loanId)
-        .limit(limit)
-        .offset(offset);
+      .select('transactions.*', 
+              'sender.fullname as sender_fullname', 
+              'sender.id as sender_id', 
+              'receiver.fullname as receiver_fullname', 
+              'receiver.id as receiver_id')
+      .leftJoin('users as sender', 'transactions.sender_id', 'sender.id')
+      .leftJoin('users as receiver', 'transactions.receiver_id', 'receiver.id')
+      .where('loan_id', loanId)
+      .orderBy('transactions.created_at', 'desc')
+      .limit(limit)
+      .offset(offset);
 
     const totalResult = await this.db('transactions')
         .where('loan_id', loanId)
