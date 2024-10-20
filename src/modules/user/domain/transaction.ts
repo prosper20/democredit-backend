@@ -1,20 +1,24 @@
+import { AggregateRoot } from "../../../shared/";
 import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
 import { Entity } from "../../../shared/domain/Entity";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
+import { RepaymentMade } from "./events/repaymentMade";
 import { TransactionType } from "./transactionType";
 
 export interface TransactionProps {
   amount: number;
   type: TransactionType;
+  sender?: string;
   senderId?: UniqueEntityID;
+  receiver?: string;
   receiverId?: UniqueEntityID;
   loanId?: UniqueEntityID | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export class Transaction extends Entity<TransactionProps> {
+export class Transaction extends AggregateRoot<TransactionProps> {
   get transactionId() {
     return this._id;
   }
@@ -24,8 +28,14 @@ export class Transaction extends Entity<TransactionProps> {
   get type() {
     return this.props.type;
   }
+  get sender() {
+    return this.props.sender;
+  }
   get senderId() {
     return this.props.senderId;
+  }
+  get receiver() {
+    return this.props.receiver;
   }
   get receiverId() {
     return this.props.receiverId;
@@ -59,6 +69,10 @@ export class Transaction extends Entity<TransactionProps> {
         },
         id,
       );
+
+      if (transaction.type === "REPAYMENT") {
+      transaction.addDomainEvent(new RepaymentMade(transaction));
+    }
 
       return Result.ok<Transaction>(transaction);
     }

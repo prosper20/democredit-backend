@@ -5,16 +5,16 @@ import { TransactionDTO } from "../dtos/transactionDTO";
 
 export class TransactionMap implements Mapper<Transaction> {
   public static toDTO(transaction: Transaction): TransactionDTO {
-    let from = transaction.senderId.toString()
-    let to = transaction.receiverId.toString()
+    let from = transaction.sender;
+    let to = transaction.receiver;
 
     if (transaction.type === "DEPOSIT"){
       from = "Deposit from External account"
-      to = transaction.receiverId.toString()
+      to = transaction.receiver
     }
 
     if (transaction.type === "WITHDRAWAL") {
-      from = transaction.senderId.toString()
+      from = transaction.sender
       to = "Withdrawal to External account"
     }
 
@@ -34,7 +34,9 @@ export class TransactionMap implements Mapper<Transaction> {
       {
         amount: parseFloat(raw.amount),
         type: raw.type,
+        sender: raw.sender_fullname ? raw.sender_fullname : undefined,
         senderId: raw.sender_id ? new UniqueEntityID(raw.sender_id) : undefined,
+        receiver: raw.receiver_fullname ? raw.receiver_fullname : undefined,
         receiverId: raw.receiver_id ? new UniqueEntityID(raw.receiver_id) : undefined,
         loanId: raw.loan_id ? new UniqueEntityID(raw.loan_id) : null,
         createdAt: new Date(raw.created_at),

@@ -1,15 +1,15 @@
 import express from "express";
 
 import { middleware } from "../../../../../shared/http";
-import { createLoanOfferController } from "../../../usecases/createLoanOffer";
-import { createLoanController } from "../../../usecases/createLoan";
-import { getOffersController } from "../../../usecases/getOffers";
-import { getLoansController } from "../../../usecases/getLoans";
-import { getOfferController } from "../../../usecases/getOffer";
-import { getLoanController } from "../../../usecases/getLoan";
+import { createLoanOfferController } from "../../../useCases/createLoanOffer";
+import { createLoanController } from "../../../useCases/createLoan";
+import { getOffersController } from "../../../useCases/getOffers";
+import { getLoansController } from "../../../useCases/getLoans";
+import { getOfferController } from "../../../useCases/getOffer";
+import { getLoanController } from "../../../useCases/getLoan";
 import { userRouter } from "../../../../user/infra/http/routes";
 import { getTransactionsController } from "../../../../user/useCases/getTransactions";
-import { approveRejectController } from "../../../usecases/approveOrRejectLoan";
+import { approveRejectController } from "../../../useCases/approveOrRejectLoan";
 const loanRouter = express.Router();
 
 loanRouter.get("/loans", 

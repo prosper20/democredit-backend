@@ -46,7 +46,7 @@ export class CreateLoanUseCase implements UseCase<CreateLoanDTO, Promise<Respons
         loanerId: new UniqueEntityID(loanerId),
         status: "PENDING",
         amount: parseFloat(request.amount),
-        interestRate,
+        interestRate: interestRate * 100,
         duration: parseInt(request.duration, 10),
         totalRepayment,
         monthlyRepayment: emi, 
